@@ -2,14 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "../components/layout/Header";
 import AppLayout from "../components/layout/AppLayout";
 import { fetchProjects } from "../lib/api";
-
-type Project = {
-  name: string;
-  owner: string;
-  deadline: string;
-  progress: number;
-  status: string;
-};
+import type { Project } from "../lib/api";
 
 function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);

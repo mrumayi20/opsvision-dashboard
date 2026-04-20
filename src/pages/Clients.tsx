@@ -2,14 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "../components/layout/Header";
 import AppLayout from "../components/layout/AppLayout";
 import { fetchClients } from "../lib/api";
-
-type Client = {
-  name: string;
-  industry: string;
-  contact: string;
-  status: string;
-  revenue: string;
-};
+import type { Client } from "../lib/api";
 
 function Clients() {
   const [clients, setClients] = useState<Client[]>([]);

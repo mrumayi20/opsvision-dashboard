@@ -19,36 +19,13 @@ import {
   fetchStats,
   fetchTraffic,
 } from "../lib/api";
-
-type Stat = {
-  title: string;
-  value: string;
-  change: string;
-  changeType: "positive" | "negative";
-};
-
-type RevenueItem = {
-  name: string;
-  revenue: number;
-};
-
-type TrafficItem = {
-  name: string;
-  value: number;
-};
-
-type Order = {
-  client: string;
-  date: string;
-  amount: string;
-  status: string;
-};
-
-type ActivityItem = {
-  title: string;
-  description: string;
-  time: string;
-};
+import type {
+  ActivityItem,
+  Order,
+  RevenueItem,
+  Stat,
+  TrafficItem,
+} from "../lib/api";
 
 const statIcons = [
   <FaDollarSign />,
