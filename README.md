@@ -1,25 +1,28 @@
 # OpsVision Dashboard
 
-OpsVision Dashboard is a modern business analytics and operations dashboard built with React, TypeScript, and Vite. It presents key business metrics, client information, project tracking, and workspace settings in a clean, responsive interface.
+OpsVision Dashboard is a modern full-stack business analytics and operations dashboard built with React, TypeScript, Vite, Node.js, and Express.
 
-This project was built as a frontend product demo to showcase reusable component design, routing, dashboard layouts, and modern Node.js-based frontend tooling.
+It presents key business metrics, client information, project tracking, and workspace settings in a clean, responsive interface. The frontend consumes data from a custom Node.js + Express API, making the project a complete frontend-backend demo rather than a static UI.
 
 ## Features
 
 - Clean login page UI
 - Responsive dashboard layout
 - Sidebar navigation with active route highlighting
-- KPI stat cards
+- KPI stat cards powered by backend APIs
 - Revenue line chart
 - Traffic sources chart
 - Recent transactions table
 - Activity feed
-- Clients management page
-- Projects tracking page
+- Clients page connected to API data
+- Projects page connected to API data
 - Settings page UI
 - Reusable layout and header components
+- Node.js + Express backend serving dashboard data
 
 ## Tech Stack
+
+### Frontend
 
 - React
 - TypeScript
@@ -29,18 +32,45 @@ This project was built as a frontend product demo to showcase reusable component
 - Recharts
 - React Icons
 
+### Backend
+
+- Node.js
+- Express
+- CORS
+
+## Architecture
+
+The project is split into two parts:
+
+- **Frontend:** React + TypeScript UI rendered in the browser
+- **Backend:** Node.js + Express API serving mock business data as JSON
+
+The frontend calls API endpoints such as:
+
+- `/api/stats`
+- `/api/revenue`
+- `/api/traffic`
+- `/api/orders`
+- `/api/activities`
+- `/api/clients`
+- `/api/projects`
+
 ## Node.js in this Project
 
-The user interface is built with React and TypeScript and runs in the browser.
+This project uses Node.js in two important ways:
 
-Node.js is used for:
+1. **Frontend tooling**
+   - npm for package management
+   - Vite for local development and production builds
 
-- package management with npm
-- running the development server
-- managing dependencies
-- building the production bundle with Vite
+2. **Backend server**
+   - Express API for serving dashboard, client, and project data
+   - CORS-enabled communication between frontend and backend
 
-So this is a frontend application built using Node.js-based tooling.
+So this project is both:
+
+- a frontend application built with React
+- a backend API built with Node.js and Express
 
 ## Project Structure
 
@@ -65,6 +95,8 @@ src/
     Login.tsx
     Projects.tsx
     Settings.tsx
+  server/
+    index.js
   App.tsx
   main.tsx
   index.css
@@ -107,15 +139,26 @@ cd opsvision-dashboard
 npm install
 ```
 
-### 3. Run the development server
+### 3. Run the backend server and run the frontend
 
 ```
 npm run dev
+npm run server
 ```
 
 ### 4. Open the app
 
-Open the local URL shown in the terminal.
+Use the local URL shown by Vite, usually:
+
+```
+http://localhost:5173
+```
+
+The backend runs on:
+
+```
+http://localhost:5000
+```
 
 ## Available Scripts
 
@@ -123,12 +166,7 @@ Open the local URL shown in the terminal.
 npm run dev
 npm run build
 npm run preview
-```
-
-## Build for Production
-
-```
-npm run build
+npm run server
 ```
 
 ## Design Goals
