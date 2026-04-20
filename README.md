@@ -4,6 +4,14 @@ OpsVision Dashboard is a modern full-stack business analytics and operations das
 
 It presents key business metrics, client information, project tracking, and workspace settings in a clean, responsive interface. The frontend consumes data from a custom Node.js + Express API, making the project a complete frontend-backend demo rather than a static UI.
 
+## Live Demo
+
+Live URL: https://opsvision-dashboard.onrender.com
+
+## Demo Preview
+
+![OpsVision Demo](screen_recording/OpsVision_demo.gif)
+
 ## Features
 
 - Clean login page UI
