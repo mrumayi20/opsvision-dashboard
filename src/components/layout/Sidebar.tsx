@@ -5,6 +5,7 @@ import {
   FaCog,
   FaBars,
 } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 type SidebarProps = {
   isOpen: boolean;
@@ -12,10 +13,10 @@ type SidebarProps = {
 };
 
 const menuItems = [
-  { name: "Overview", icon: <FaChartLine />, active: true },
-  { name: "Clients", icon: <FaUsers />, active: false },
-  { name: "Projects", icon: <FaFolderOpen />, active: false },
-  { name: "Settings", icon: <FaCog />, active: false },
+  { name: "Overview", icon: <FaChartLine />, path: "/dashboard" },
+  { name: "Clients", icon: <FaUsers />, path: "/clients" },
+  { name: "Projects", icon: <FaFolderOpen />, path: "/projects" },
+  { name: "Settings", icon: <FaCog />, path: "/settings" },
 ];
 
 function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
@@ -47,17 +48,21 @@ function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
 
         <nav className="flex flex-1 flex-col gap-3">
           {menuItems.map((item) => (
-            <button
+            <NavLink
               key={item.name}
-              className={`flex items-center gap-3 rounded-xl px-4 py-3 text-left transition ${
-                item.active
-                  ? "bg-slate-900 text-white"
-                  : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
-              }`}
+              to={item.path}
+              onClick={toggleSidebar}
+              className={({ isActive }) =>
+                `flex items-center gap-3 rounded-xl px-4 py-3 text-left transition ${
+                  isActive
+                    ? "bg-slate-900 text-white"
+                    : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+                }`
+              }
             >
               <span className="text-lg">{item.icon}</span>
               <span className="font-medium">{item.name}</span>
-            </button>
+            </NavLink>
           ))}
         </nav>
 
