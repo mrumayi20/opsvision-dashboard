@@ -1,6 +1,14 @@
-import { activityFeed } from "../../data/mockData";
+type ActivityItem = {
+  title: string;
+  description: string;
+  time: string;
+};
 
-function ActivityFeed() {
+type ActivityFeedProps = {
+  activities: ActivityItem[];
+};
+
+function ActivityFeed({ activities }: ActivityFeedProps) {
   return (
     <div className="rounded-2xl bg-white p-5 shadow-sm">
       <div className="mb-5">
@@ -11,7 +19,7 @@ function ActivityFeed() {
       </div>
 
       <div className="space-y-4">
-        {activityFeed.map((item) => (
+        {activities.map((item) => (
           <div
             key={`${item.title}-${item.time}`}
             className="rounded-xl border border-slate-100 bg-slate-50 p-4"

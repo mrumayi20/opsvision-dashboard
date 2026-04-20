@@ -1,44 +1,34 @@
+import { useEffect, useState } from "react";
 import Header from "../components/layout/Header";
 import AppLayout from "../components/layout/AppLayout";
+import { fetchClients } from "../lib/api";
+
+type Client = {
+  name: string;
+  industry: string;
+  contact: string;
+  status: string;
+  revenue: string;
+};
 
 function Clients() {
-  const clients = [
-    {
-      name: "Acme Corp",
-      industry: "Retail",
-      contact: "sarah@acme.com",
-      status: "Active",
-      revenue: "$24,000",
-    },
-    {
-      name: "Bright Labs",
-      industry: "Healthcare",
-      contact: "mike@brightlabs.com",
-      status: "Pending",
-      revenue: "$18,500",
-    },
-    {
-      name: "NovaTech",
-      industry: "Technology",
-      contact: "emma@novatech.com",
-      status: "Active",
-      revenue: "$31,200",
-    },
-    {
-      name: "Urban Retail",
-      industry: "E-commerce",
-      contact: "alex@urbanretail.com",
-      status: "Inactive",
-      revenue: "$12,800",
-    },
-    {
-      name: "Zenith Works",
-      industry: "Manufacturing",
-      contact: "james@zenithworks.com",
-      status: "Active",
-      revenue: "$27,400",
-    },
-  ];
+  const [clients, setClients] = useState<Client[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadClients() {
+      try {
+        const data = await fetchClients();
+        setClients(data);
+      } catch (error) {
+        console.error("Failed to load clients:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadClients();
+  }, []);
 
   const getStatusStyles = (status: string) => {
     switch (status) {
@@ -78,42 +68,52 @@ function Clients() {
           </div>
         </div>
 
-        <div className="rounded-2xl bg-white p-5 shadow-sm">
-          <div className="overflow-x-auto">
-            <table className="min-w-full border-separate border-spacing-y-3">
-              <thead>
-                <tr className="text-left text-sm text-slate-500">
-                  <th className="pb-2 font-medium">Client</th>
-                  <th className="pb-2 font-medium">Industry</th>
-                  <th className="pb-2 font-medium">Contact</th>
-                  <th className="pb-2 font-medium">Revenue</th>
-                  <th className="pb-2 font-medium">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {clients.map((client) => (
-                  <tr key={client.name} className="text-sm text-slate-700">
-                    <td className="rounded-l-xl bg-slate-50 px-4 py-4 font-medium text-slate-900">
-                      {client.name}
-                    </td>
-                    <td className="bg-slate-50 px-4 py-4">{client.industry}</td>
-                    <td className="bg-slate-50 px-4 py-4">{client.contact}</td>
-                    <td className="bg-slate-50 px-4 py-4 font-medium">
-                      {client.revenue}
-                    </td>
-                    <td className="rounded-r-xl bg-slate-50 px-4 py-4">
-                      <span
-                        className={`rounded-full px-3 py-1 text-xs font-semibold ${getStatusStyles(client.status)}`}
-                      >
-                        {client.status}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        {loading ? (
+          <div className="rounded-2xl bg-white p-8 text-center text-slate-500 shadow-sm">
+            Loading clients...
           </div>
-        </div>
+        ) : (
+          <div className="rounded-2xl bg-white p-5 shadow-sm">
+            <div className="overflow-x-auto">
+              <table className="min-w-full border-separate border-spacing-y-3">
+                <thead>
+                  <tr className="text-left text-sm text-slate-500">
+                    <th className="pb-2 font-medium">Client</th>
+                    <th className="pb-2 font-medium">Industry</th>
+                    <th className="pb-2 font-medium">Contact</th>
+                    <th className="pb-2 font-medium">Revenue</th>
+                    <th className="pb-2 font-medium">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {clients.map((client) => (
+                    <tr key={client.name} className="text-sm text-slate-700">
+                      <td className="rounded-l-xl bg-slate-50 px-4 py-4 font-medium text-slate-900">
+                        {client.name}
+                      </td>
+                      <td className="bg-slate-50 px-4 py-4">
+                        {client.industry}
+                      </td>
+                      <td className="bg-slate-50 px-4 py-4">
+                        {client.contact}
+                      </td>
+                      <td className="bg-slate-50 px-4 py-4 font-medium">
+                        {client.revenue}
+                      </td>
+                      <td className="rounded-r-xl bg-slate-50 px-4 py-4">
+                        <span
+                          className={`rounded-full px-3 py-1 text-xs font-semibold ${getStatusStyles(client.status)}`}
+                        >
+                          {client.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </div>
     </AppLayout>
   );

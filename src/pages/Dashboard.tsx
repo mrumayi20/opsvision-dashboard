@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   FaDollarSign,
   FaUsers,
@@ -11,8 +12,91 @@ import RevenueChart from "../components/dashboard/RevenueChart";
 import TrafficChart from "../components/dashboard/TrafficChart";
 import RecentOrders from "../components/dashboard/RecentOrders";
 import ActivityFeed from "../components/dashboard/ActivityFeed";
+import {
+  fetchActivities,
+  fetchOrders,
+  fetchRevenue,
+  fetchStats,
+  fetchTraffic,
+} from "../lib/api";
+
+type Stat = {
+  title: string;
+  value: string;
+  change: string;
+  changeType: "positive" | "negative";
+};
+
+type RevenueItem = {
+  name: string;
+  revenue: number;
+};
+
+type TrafficItem = {
+  name: string;
+  value: number;
+};
+
+type Order = {
+  client: string;
+  date: string;
+  amount: string;
+  status: string;
+};
+
+type ActivityItem = {
+  title: string;
+  description: string;
+  time: string;
+};
+
+const statIcons = [
+  <FaDollarSign />,
+  <FaUsers />,
+  <FaChartLine />,
+  <FaBriefcase />,
+];
 
 function Dashboard() {
+  const [stats, setStats] = useState<Stat[]>([]);
+  const [revenue, setRevenue] = useState<RevenueItem[]>([]);
+  const [traffic, setTraffic] = useState<TrafficItem[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [activities, setActivities] = useState<ActivityItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadDashboardData() {
+      try {
+        const [
+          statsData,
+          revenueData,
+          trafficData,
+          ordersData,
+          activitiesData,
+        ] = await Promise.all([
+          fetchStats(),
+          fetchRevenue(),
+          fetchTraffic(),
+          fetchOrders(),
+          fetchActivities(),
+        ]);
+
+        setStats(statsData);
+        setRevenue(revenueData);
+        setTraffic(trafficData);
+        setOrders(ordersData);
+        setActivities(activitiesData);
+      } catch (error) {
+        console.error("Failed to load dashboard data:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadDashboardData();
+  }, []);
+
   return (
     <AppLayout>
       <Header
@@ -20,54 +104,44 @@ function Dashboard() {
         subtitle="Welcome back, here is what is happening today."
       />
 
-      <section className="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-        <StatCard
-          title="Total Revenue"
-          value="$128,450"
-          change="+12.5%"
-          changeType="positive"
-          icon={<FaDollarSign />}
-        />
-        <StatCard
-          title="Active Clients"
-          value="1,248"
-          change="+8.2%"
-          changeType="positive"
-          icon={<FaUsers />}
-        />
-        <StatCard
-          title="Conversion Rate"
-          value="6.8%"
-          change="-1.1%"
-          changeType="negative"
-          icon={<FaChartLine />}
-        />
-        <StatCard
-          title="Open Projects"
-          value="34"
-          change="+4.3%"
-          changeType="positive"
-          icon={<FaBriefcase />}
-        />
-      </section>
+      {loading ? (
+        <div className="mt-6 rounded-2xl bg-white p-8 text-center text-slate-500 shadow-sm">
+          Loading dashboard data...
+        </div>
+      ) : (
+        <>
+          <section className="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            {stats.map((stat, index) => (
+              <StatCard
+                key={stat.title}
+                title={stat.title}
+                value={stat.value}
+                change={stat.change}
+                changeType={stat.changeType}
+                icon={statIcons[index]}
+              />
+            ))}
+          </section>
 
-      <section className="mt-6 grid gap-6 xl:grid-cols-3">
-        <div className="xl:col-span-2">
-          <RevenueChart />
-        </div>
-        <div>
-          <TrafficChart />
-        </div>
-      </section>
+          <section className="mt-6 grid gap-6 xl:grid-cols-3">
+            <div className="xl:col-span-2">
+              <RevenueChart data={revenue} />
+            </div>
+            <div>
+              <TrafficChart data={traffic} />
+            </div>
+          </section>
 
-      <section className="mt-6 grid gap-6 xl:grid-cols-3">
-        <div className="xl:col-span-2">
-          <RecentOrders />
-        </div>
-        <div>
-          <ActivityFeed />
-        </div>
-      </section>
+          <section className="mt-6 grid gap-6 xl:grid-cols-3">
+            <div className="xl:col-span-2">
+              <RecentOrders orders={orders} />
+            </div>
+            <div>
+              <ActivityFeed activities={activities} />
+            </div>
+          </section>
+        </>
+      )}
     </AppLayout>
   );
 }

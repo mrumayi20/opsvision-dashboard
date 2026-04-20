@@ -1,9 +1,17 @@
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
-import { trafficData } from "../../data/mockData";
+
+type TrafficItem = {
+  name: string;
+  value: number;
+};
+
+type TrafficChartProps = {
+  data: TrafficItem[];
+};
 
 const COLORS = ["#0f172a", "#334155", "#64748b", "#94a3b8"];
 
-function TrafficChart() {
+function TrafficChart({ data }: TrafficChartProps) {
   return (
     <div className="rounded-2xl bg-white p-5 shadow-sm">
       <div className="mb-6">
@@ -19,7 +27,7 @@ function TrafficChart() {
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
-              data={trafficData}
+              data={data}
               dataKey="value"
               nameKey="name"
               cx="50%"
@@ -28,7 +36,7 @@ function TrafficChart() {
               outerRadius={85}
               paddingAngle={4}
             >
-              {trafficData.map((_, index) => (
+              {data.map((_, index) => (
                 <Cell key={index} fill={COLORS[index % COLORS.length]} />
               ))}
             </Pie>
@@ -38,7 +46,7 @@ function TrafficChart() {
       </div>
 
       <div className="mt-4 space-y-3">
-        {trafficData.map((item, index) => (
+        {data.map((item, index) => (
           <div
             key={item.name}
             className="flex items-center justify-between text-sm"

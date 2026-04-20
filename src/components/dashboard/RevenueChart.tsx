@@ -7,9 +7,17 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { revenueData } from "../../data/mockData";
 
-function RevenueChart() {
+type RevenueItem = {
+  name: string;
+  revenue: number;
+};
+
+type RevenueChartProps = {
+  data: RevenueItem[];
+};
+
+function RevenueChart({ data }: RevenueChartProps) {
   return (
     <div className="rounded-2xl bg-white p-5 shadow-sm">
       <div className="mb-6 flex items-start justify-between">
@@ -28,7 +36,7 @@ function RevenueChart() {
 
       <div className="h-80">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={revenueData}>
+          <LineChart data={data}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} />
             <XAxis dataKey="name" tickLine={false} axisLine={false} />
             <YAxis tickLine={false} axisLine={false} />

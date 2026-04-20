@@ -1,4 +1,13 @@
-import { recentOrders } from "../../data/mockData";
+type Order = {
+  client: string;
+  date: string;
+  amount: string;
+  status: string;
+};
+
+type RecentOrdersProps = {
+  orders: Order[];
+};
 
 function getStatusStyles(status: string) {
   switch (status) {
@@ -13,7 +22,7 @@ function getStatusStyles(status: string) {
   }
 }
 
-function RecentOrders() {
+function RecentOrders({ orders }: RecentOrdersProps) {
   return (
     <div className="rounded-2xl bg-white p-5 shadow-sm">
       <div className="mb-5">
@@ -36,7 +45,7 @@ function RecentOrders() {
             </tr>
           </thead>
           <tbody>
-            {recentOrders.map((order) => (
+            {orders.map((order) => (
               <tr
                 key={`${order.client}-${order.date}`}
                 className="text-sm text-slate-700"

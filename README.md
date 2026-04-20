@@ -1,73 +1,148 @@
-# React + TypeScript + Vite
+# OpsVision Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+OpsVision Dashboard is a modern business analytics and operations dashboard built with React, TypeScript, and Vite. It presents key business metrics, client information, project tracking, and workspace settings in a clean, responsive interface.
 
-Currently, two official plugins are available:
+This project was built as a frontend product demo to showcase reusable component design, routing, dashboard layouts, and modern Node.js-based frontend tooling.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- Clean login page UI
+- Responsive dashboard layout
+- Sidebar navigation with active route highlighting
+- KPI stat cards
+- Revenue line chart
+- Traffic sources chart
+- Recent transactions table
+- Activity feed
+- Clients management page
+- Projects tracking page
+- Settings page UI
+- Reusable layout and header components
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Router DOM
+- Recharts
+- React Icons
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Node.js in this Project
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+The user interface is built with React and TypeScript and runs in the browser.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Node.js is used for:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- package management with npm
+- running the development server
+- managing dependencies
+- building the production bundle with Vite
+
+So this is a frontend application built using Node.js-based tooling.
+
+## Project Structure
+
+```txt
+src/
+  components/
+    dashboard/
+      ActivityFeed.tsx
+      RecentOrders.tsx
+      RevenueChart.tsx
+      StatCard.tsx
+      TrafficChart.tsx
+    layout/
+      AppLayout.tsx
+      Header.tsx
+      Sidebar.tsx
+  data/
+    mockData.ts
+  pages/
+    Clients.tsx
+    Dashboard.tsx
+    Login.tsx
+    Projects.tsx
+    Settings.tsx
+  App.tsx
+  main.tsx
+  index.css
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Pages
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Login
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+A polished authentication-style screen used to simulate product entry flow.
+
+### Dashboard
+
+Shows business KPIs, charts, transactions, and activity updates.
+
+### Clients
+
+Displays a directory of clients with industry, contact, revenue, and status.
+
+### Projects
+
+Tracks project progress, owners, deadlines, and completion status.
+
+### Settings
+
+Includes profile settings, notifications, workspace plan, and security actions.
+
+## Getting Started
+
+### 1. Clone the repository
+
 ```
+git clone https://github.com/mrumayi20/opsvision-dashboard
+cd opsvision-dashboard
+```
+
+### 2. Install dependencies
+
+```
+npm install
+```
+
+### 3. Run the development server
+
+```
+npm run dev
+```
+
+### 4. Open the app
+
+Open the local URL shown in the terminal.
+
+## Available Scripts
+
+```
+npm run dev
+npm run build
+npm run preview
+```
+
+## Build for Production
+
+```
+npm run build
+```
+
+## Design Goals
+
+This project was built with the following goals in mind:
+
+<ul>
+  <li>Create a professional dashboard UI that feels like a real product</li>
+  <li>Use reusable React components</li>
+  <li>Keep the structure simple and scalable</li>
+  <li>Demonstrate routing and multi-page layout</li>
+  <li>Use mock data to focus on frontend experience and presentation</li>
+</ul>
+
+## Author
+
+Mrunmayi Patil
