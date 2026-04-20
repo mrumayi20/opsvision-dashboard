@@ -55,15 +55,20 @@ function Clients() {
 
   return (
     <AppLayout>
-      <Header />
+      <Header
+        title="Clients"
+        subtitle="Manage and monitor all client accounts in one place."
+      />
 
       <div className="mt-6 space-y-6">
         <div className="rounded-2xl bg-white p-6 shadow-sm">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-slate-900">Clients</h2>
+              <h2 className="text-2xl font-bold text-slate-900">
+                Client Directory
+              </h2>
               <p className="mt-1 text-sm text-slate-500">
-                Manage and monitor all client accounts in one place.
+                Overview of current client accounts and revenue.
               </p>
             </div>
 
@@ -74,15 +79,6 @@ function Clients() {
         </div>
 
         <div className="rounded-2xl bg-white p-5 shadow-sm">
-          <div className="mb-5">
-            <h3 className="text-lg font-semibold text-slate-900">
-              Client Directory
-            </h3>
-            <p className="mt-1 text-sm text-slate-500">
-              Overview of current client accounts and revenue.
-            </p>
-          </div>
-
           <div className="overflow-x-auto">
             <table className="min-w-full border-separate border-spacing-y-3">
               <thead>

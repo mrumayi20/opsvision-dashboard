@@ -1,13 +1,16 @@
 import { FaBell, FaSearch } from "react-icons/fa";
 
-function Header() {
+type HeaderProps = {
+  title: string;
+  subtitle: string;
+};
+
+function Header({ title, subtitle }: HeaderProps) {
   return (
     <header className="flex flex-col gap-4 rounded-2xl bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between">
       <div>
-        <h2 className="text-2xl font-bold text-slate-900">Overview</h2>
-        <p className="mt-1 text-sm text-slate-500">
-          Welcome back, here is what is happening today.
-        </p>
+        <h2 className="text-2xl font-bold text-slate-900">{title}</h2>
+        <p className="mt-1 text-sm text-slate-500">{subtitle}</p>
       </div>
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">

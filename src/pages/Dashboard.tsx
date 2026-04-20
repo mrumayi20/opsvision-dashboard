@@ -15,7 +15,10 @@ import ActivityFeed from "../components/dashboard/ActivityFeed";
 function Dashboard() {
   return (
     <AppLayout>
-      <Header />
+      <Header
+        title="Overview"
+        subtitle="Welcome back, here is what is happening today."
+      />
 
       <section className="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard
